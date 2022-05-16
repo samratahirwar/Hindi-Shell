@@ -1,6 +1,6 @@
 import sys
 import subprocess
-from prog_dict import prog_dict
+from prog_dict import prog_dict,option_dict
 import os
 from englisttohindi.englisttohindi import EngtoHindi
 
@@ -12,7 +12,14 @@ def convert(command):
     new_command=None
     try:
         command=command.split(' ')
-        new_command=prog_dict[command[0].strip()]+' '+' '.join(command[1:])
+        rest_command=command[1:]
+        for i in range(len(rest_command)):
+            option=rest_command[i].strip()
+            if '-' ==option[0]:
+                option=option_dict[option[1:]]
+                rest_command[i]='-'+option
+
+        new_command=prog_dict[command[0].strip()]+' '+' '.join(rest_command[1:])
     except KeyError:
             print(command)
             prog_dict[command[0].strip()]=''
@@ -33,6 +40,6 @@ while True:
         output=subprocess.check_output(command, shell=True, text=True)
     except Exception as e:
         output=translate(str(e))
-    print(translate(output))
+    print(output)
 
 print('॥ समाप्त ॥')
