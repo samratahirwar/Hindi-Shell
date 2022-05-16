@@ -6,5 +6,5 @@ clear
 echo "*** हिंदी शैल ***" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 echo ""
 
-python3 ./unix_shell/hindi_shell.py
+python3 ./hindi_shell.py
 
